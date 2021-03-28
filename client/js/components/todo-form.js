@@ -8,7 +8,9 @@ class TodoForm {
   }
 
   mount() {
+    console.log("🦈")
     this.button.addEventListener("click", (e) => {
+      console.log("👻")
       e.preventDefault();
       store.dispatch(createAddTodoAction({ name: this.form.value }));
       this.form.value = "";

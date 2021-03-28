@@ -4,6 +4,8 @@ const todoRouter = require("./todo");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Body-ParserはExpressに標準搭載されてるらしい
+// https://qiita.com/atlansien/items/c587a0bf2f7f9022107c
 app.use(bodyParser.json());
 
 app.use((_req, res, next) => {
@@ -16,6 +18,8 @@ app.use((_req, res, next) => {
   next();
 });
 
+// todoパスのリクエストがあったときに、todoRouterのミドルウェア関数を実行する
 app.use("/todo", todoRouter);
 
+// サーバを立てる
 app.listen(PORT);

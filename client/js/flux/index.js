@@ -17,7 +17,7 @@ class Dispatcher extends EventTarget {
 const FETCH_TODO_ACTION_TYPE = "Fetch todo list from server";
 export const createFetchTodoListAction = () => ({
   type: FETCH_TODO_ACTION_TYPE,
-  paylaod: undefined,
+  payload: undefined,
 });
 
 const ADD_TODO_ACTION_TYPE = "A todo addition to store";
@@ -84,6 +84,8 @@ export function createStore(initialState = defaultState) {
   const dispatcher = new Dispatcher();
   let state = initialState;
 
+  console.log("🐍")
+
   const dispatch = async ({ type, payload }) => {
     console.group(type);
     console.log("prev", state);
@@ -94,6 +96,7 @@ export function createStore(initialState = defaultState) {
   };
 
   const subscribe = (subscriber) => {
+    console.log("🐳")
     dispatcher.subscribe(() => subscriber(state));
   };
 

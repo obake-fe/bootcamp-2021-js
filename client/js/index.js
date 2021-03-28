@@ -5,8 +5,12 @@ import TodoForm from "./components/todo-form.js";
 
 new TodoForm().mount();
 
+  console.log("🐧")
+
 store.subscribe((state) => {
+  console.log("hoge")
   if (state.error == null) {
+    console.log("🦕")
     const parent = document.querySelector(".todo-list__wrapper");
     new TodoList(parent, { todoList: state.todoList }).render();
   } else {
@@ -15,5 +19,7 @@ store.subscribe((state) => {
     store.dispatch(clearError());
   }
 });
+
+console.log("🦋")
 
 store.dispatch(createFetchTodoListAction());
