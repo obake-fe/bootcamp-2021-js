@@ -27,6 +27,12 @@ export const createAddTodoAction = (todo) => ({
 });
 
 // TODO: 削除アクション
+const DELETE_TODO_ACTION_TYPE = "Delete a todo list from store";
+export const createDeleteTodoAction = (todo) => ({
+  type: DELETE_TODO_ACTION_TYPE,
+  payload: todo,
+});
+
 // TODO: 更新アクション
 
 const CLEAR_ERROR = "Clear error from state";
@@ -70,6 +76,18 @@ const reducer = async (prevState, { type, payload }) => {
       }
     }
     // TODO: 削除時の処理
+    case DELETE_TODO_ACTION_TYPE: {
+      const config = { method: "DELETE"};
+      try {
+        await fetch(`${api}/${payload.id}`, config)
+
+        const resp = await fetch(api).then((d) => d.json());
+
+        return { todoList: resp.todoList, error: null };
+      } catch (err) {
+        return { ...prevState, error: err };
+      }
+    }
     // TODO: 更新時の処理
     case CLEAR_ERROR: {
       return { ...prevState, error: null };
