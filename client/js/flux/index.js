@@ -34,6 +34,11 @@ export const createDeleteTodoAction = (todo) => ({
 });
 
 // TODO: 更新アクション
+const PATCH_TODO_ACTION_TYPE = "patch a todo list in store";
+export const createPatchTodoAction = (todo) => ({
+  type: PATCH_TODO_ACTION_TYPE,
+  payload: todo,
+});
 
 const CLEAR_ERROR = "Clear error from state";
 export const clearError = () => ({
@@ -89,6 +94,19 @@ const reducer = async (prevState, { type, payload }) => {
       }
     }
     // TODO: 更新時の処理
+    case PATCH_TODO_ACTION_TYPE: {
+      const body = JSON.stringify(payload);
+      const config = { method: "PATCH", body, headers };
+      try {
+        await fetch(`${api}/${payload.id}`, config)
+
+        const resp = await fetch(api).then((d) => d.json());
+
+        return { todoList: resp.todoList, error: null };
+      } catch (err) {
+        return { ...prevState, error: err };
+      }
+    }
     case CLEAR_ERROR: {
       return { ...prevState, error: null };
     }
