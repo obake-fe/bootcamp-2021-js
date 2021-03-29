@@ -9,6 +9,7 @@ class Todo {
   }
 
   mount() {
+    // この意義もよくわかんない
     if (this.mounted) return;
 
     // TODO: ここにTODOの削除ボタンが押されたときの処理を追記
@@ -47,9 +48,11 @@ class Todo {
       <div class="todo-name">${name}</div>
       <div data-todo-id="${id}" class="todo-remove-button">x</div>
     `;
+    console.log("🐅", this.element, "永遠のundefined")
     if (!this.element) {
       this.parent.appendChild(next);
     } else {
+      console.log("🐬", "ここ通ることなくない？")
       this.parent.replaceChild(this.element, next);
     }
     this.element = next;

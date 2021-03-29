@@ -1,7 +1,7 @@
 # setup
 
 ```bash
-$ cd serevr && npm i
+$ cd server && npm i
 ```
 
 # run
@@ -9,3 +9,6 @@ $ cd serevr && npm i
 ```bash
 $ ./run.bash
 ```
+
+参考
+https://sbfl.net/blog/2018/08/25/nodejs-express-webapi/

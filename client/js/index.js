@@ -5,12 +5,12 @@ import TodoForm from "./components/todo-form.js";
 
 new TodoForm().mount();
 
-  console.log("🐧")
+console.log("🐧", "TodoForm mount finish")
 
 store.subscribe((state) => {
-  console.log("hoge")
+  console.log("🐩", "fire subscriber")
   if (state.error == null) {
-    console.log("🦕")
+    console.log("🦕", "rendering view")
     const parent = document.querySelector(".todo-list__wrapper");
     new TodoList(parent, { todoList: state.todoList }).render();
   } else {
@@ -20,6 +20,6 @@ store.subscribe((state) => {
   }
 });
 
-console.log("🦋")
+console.log("🦋",  "subscribe setting finish")
 
 store.dispatch(createFetchTodoListAction());

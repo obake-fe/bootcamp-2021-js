@@ -2,11 +2,18 @@
  * Dispatcher
  */
 class Dispatcher extends EventTarget {
+
+
   dispatch() {
+    // カスタムイベントの発行
+    // https://developer.mozilla.org/ja/docs/Web/API/CustomEvent/CustomEvent
+    // this == Dispatcherインスタンス にカスタムイベント"event"をdispatchする
+    // https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener
     this.dispatchEvent(new CustomEvent("event"));
   }
 
   subscribe(subscriber) {
+    // "event"がdispatchされたときに発火する関数、subscriber == コールバック関数を設定する
     this.addEventListener("event", subscriber);
   }
 }
@@ -15,10 +22,16 @@ class Dispatcher extends EventTarget {
  * Action Creator and Action Types
  */
 const FETCH_TODO_ACTION_TYPE = "Fetch todo list from server";
-export const createFetchTodoListAction = () => ({
-  type: FETCH_TODO_ACTION_TYPE,
-  payload: undefined,
-});
+export const createFetchTodoListAction = () => {
+  console.log("🦎", "fetch todoList")
+
+  return (
+    {
+      type: FETCH_TODO_ACTION_TYPE,
+      payload: undefined,
+    }
+  )
+}
 
 const ADD_TODO_ACTION_TYPE = "A todo addition to store";
 export const createAddTodoAction = (todo) => ({
@@ -60,6 +73,8 @@ const headers = {
   "Content-Type": "application/json; charset=utf-8",
 };
 
+// fetchメモ
+// https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch
 const reducer = async (prevState, { type, payload }) => {
   switch (type) {
     case FETCH_TODO_ACTION_TYPE: {
@@ -120,9 +135,12 @@ export function createStore(initialState = defaultState) {
   const dispatcher = new Dispatcher();
   let state = initialState;
 
-  console.log("🐍")
+  console.log("🐍", "createStore")
 
   const dispatch = async ({ type, payload }) => {
+
+    // console.logをグループ化
+    // https://developer.mozilla.org/ja/docs/Web/API/console/group
     console.group(type);
     console.log("prev", state);
     state = await reducer(state, { type, payload });
@@ -132,7 +150,7 @@ export function createStore(initialState = defaultState) {
   };
 
   const subscribe = (subscriber) => {
-    console.log("🐳")
+    console.log("🐳", "subscribe start")
     dispatcher.subscribe(() => subscriber(state));
   };
 
