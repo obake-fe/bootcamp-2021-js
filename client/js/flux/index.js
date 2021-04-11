@@ -9,26 +9,33 @@ class Dispatcher extends EventTarget {
     // https://developer.mozilla.org/ja/docs/Web/API/CustomEvent/CustomEvent
     // this == Dispatcherインスタンス にカスタムイベント"event"をdispatchする
     // https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener
-    this.dispatchEvent(new CustomEvent("event"));
+    this.dispatchEvent(new CustomEvent("ハム太郎"));
   }
 
   subscribe(subscriber) {
+    console.log("ほげ")
     // "event"がdispatchされたときに発火する関数、subscriber == コールバック関数を設定する
-    this.addEventListener("event", subscriber);
+    this.addEventListener("ハム太郎", subscriber);
   }
 }
 
+const fnc = () => {
+  console.log("hogehoge")
+}
+document.addEventListener("click", fnc)
 /**
  * Action Creator and Action Types
  */
 const FETCH_TODO_ACTION_TYPE = "Fetch todo list from server";
+
+// ↓がActionCreator(ハム太郎🐹)
 export const createFetchTodoListAction = () => {
-  console.log("🦎", "fetch todoList")
+  console.log("🦎", "createAction fetch todoList")
 
   return (
     {
-      type: FETCH_TODO_ACTION_TYPE,
-      payload: undefined,
+      type: FETCH_TODO_ACTION_TYPE, // 手紙
+      payload: undefined, // ひまわりの種
     }
   )
 }
@@ -39,7 +46,7 @@ export const createAddTodoAction = (todo) => ({
   payload: todo,
 });
 
-// TODO: 削除アクション
+// TODO: 削除のアクションクリエイター
 const DELETE_TODO_ACTION_TYPE = "Delete a todo list from store";
 export const createDeleteTodoAction = (todo) => ({
   type: DELETE_TODO_ACTION_TYPE,
@@ -75,6 +82,8 @@ const headers = {
 
 // fetchメモ
 // https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch
+
+// reducer タイショーくん⛑
 const reducer = async (prevState, { type, payload }) => {
   switch (type) {
     case FETCH_TODO_ACTION_TYPE: {
@@ -137,6 +146,7 @@ export function createStore(initialState = defaultState) {
 
   console.log("🐍", "createStore")
 
+  // Dispatcher こうしくん🐮
   const dispatch = async ({ type, payload }) => {
 
     // console.logをグループ化

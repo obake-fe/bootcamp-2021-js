@@ -7,6 +7,7 @@ new TodoForm().mount();
 
 console.log("🐧", "TodoForm mount finish")
 
+// subscriber りぼんちゃん🎀
 store.subscribe((state) => {
   console.log("🐩", "fire subscriber")
   if (state.error == null) {
